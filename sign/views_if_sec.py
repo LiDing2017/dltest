@@ -16,3 +16,12 @@ def user_auth(request):
         return 'success'
     else:
         return 'fail'
+#查询发布会接口---增加用户认证
+def get_event_list(request):
+    auth_result=user_auth()#调用认证接口
+    if auth_result=='null':
+        return JsonResponse({'status':10011,'message':'user auth null'})
+    if auth_result=='fail':
+        return JsonResponse({'status': 10012, 'message': 'user auth fail'})
+    eid=request.GET.get('eid','')#发布会id
+    name=request.GET.get('name','')#发布会名称
